@@ -109,16 +109,16 @@ function problemC() {
   // });
 
   // promise version (hint: don't need to nest `then` calls)
-  const p1 = promisifiedReadFile("poem-one/stanza-02.txt").then((response) =>
-    blue(response)
-  );
+  promisifiedReadFile("poem-one/stanza-02.txt")
+    .then((response) => {
+      blue(response);
+      return promisifiedReadFile("poem-one/stanza-03.txt");
+    })
+    .then((response) => {
+      blue(response);
+      console.log("done");
+    });
 
-  p1
-    ? promisifiedReadFile("poem-one/stanza-03.txt").then((response) => {
-        blue(response);
-        console.log("done");
-      })
-    : null;
   // ???
 }
 
@@ -137,9 +137,10 @@ function problemD() {
   // });
 
   // promise version
-  promisifiedReadFile("poem-one/stanza-04.txt")
-    .then((response) => blue(response))
-    .catch((err) => magenta(new Error(err)));
+  promisifiedReadFile("poem-one/wrong-file-name.txt").then(
+    (response) => blue(response),
+    (err) => magenta(new Error(err))
+  );
   // ???
 }
 
@@ -165,15 +166,16 @@ function problemE() {
   // });
 
   // promise version
-  const p1 = promisifiedReadFile("poem-one/stanza-03.txt")
-    .then((response) => blue(response))
+  promisifiedReadFile("poem-one/stanza-03.txt")
+    .then((response) => {
+      blue(response);
+      return promisifiedReadFile("poem-one/stanza-04.txt");
+    })
+    .then((response) => {
+      blue(response);
+      console.log("done");
+    })
     .catch((err) => magenta(new Error(err)));
-
-  p1
-    ? promisifiedReadFile("poem-one/stanza-04.txt")
-        .then((response) => blue(response))
-        .catch((err) => magenta(new Error(err)))
-    : null;
 
   // ???
 }
@@ -205,20 +207,17 @@ function problemF() {
   // });
 
   // promise version
-  const p1 = promisifiedReadFile("poem-one/stanza-03.txt")
+  promisifiedReadFile("poem-one/stanza-03.txt")
     .then((response) => {
       blue(response);
+      return promisifiedReadFile("poem-one/stanza-04.txt");
     })
-    .catch((err) => magenta(new Error(err)));
-
-  p1
-    ? promisifiedReadFile("poem-one/stanza-04.txt")
-        .then((response) => {
-          blue(response);
-          console.log("done");
-        })
-        .catch((err) => magenta(new Error(err)))
-    : null;
+    .then((response) => {
+      blue(response);
+      // console.log("done");
+    })
+    .catch((err) => magenta(new Error(err)))
+    .finally(() => console.log("done"));
 
   // ???
 }

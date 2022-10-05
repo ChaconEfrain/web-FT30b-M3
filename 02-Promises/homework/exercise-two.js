@@ -72,9 +72,9 @@ function problemB() {
    *
    */
 
-  var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) {
-    return `poem-two/stanza-0${n}.txt`;
-  });
+  var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(
+    (n) => `poem-two/stanza-0${n}.txt`
+  );
 
   // callback version
   // async.each(
@@ -112,9 +112,9 @@ function problemC() {
    *
    */
 
-  var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) {
-    return `poem-two/stanza-0${n}.txt`;
-  });
+  var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(
+    (n) => `poem-two/stanza-0${n}.txt`
+  );
 
   // callback version
   // async.eachSeries(
@@ -152,9 +152,9 @@ function problemD() {
    *
    */
 
-  var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(function (n) {
-    return `poem-two/stanza-0${n}.txt`;
-  });
+  var filenames = [1, 2, 3, 4, 5, 6, 7, 8].map(
+    (n) => `poem-two/stanza-0${n}.txt`
+  );
   var randIdx = Math.floor(Math.random() * filenames.length);
   filenames[randIdx] = `wrong-file-name-${randIdx + 1}.txt`;
 
@@ -181,9 +181,9 @@ function problemD() {
   Promise.all(promisifiedFiles)
     .then((response) => {
       response.forEach((resp) => blue(resp));
-      console.log("done");
     })
-    .catch((err) => magenta(new Error(err)));
+    .catch((err) => magenta(new Error(err)))
+    .finally(() => console.log("done"));
   // ???
 }
 
