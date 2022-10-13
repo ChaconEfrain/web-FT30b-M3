@@ -26,7 +26,7 @@ args.forEach(function (arg) {
   if (problem) problem();
 });
 
-function problemA() {
+async function problemA() {
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * *
    *
    * A. loggea el poema dos stanza uno y stanza dos en cualquier orden
@@ -50,17 +50,15 @@ function problemA() {
   //   }
   // );
   // AsyncAwait version
-  const p1 = promisifiedReadFile("poem-two/stanza-01.txt");
-  const p2 = promisifiedReadFile("poem-two/stanza-02.txt");
-  async function all() {
-    const promises = await Promise.all([p1, p2]);
-    promises.forEach((promise) => blue(promise));
-    console.log("done");
-  }
-  all();
+  const poems = ["poem-two/stanza-01.txt", "poem-two/stanza-02.txt"].map(
+    (poem) => promisifiedReadFile(poem)
+  );
+  const promises = await Promise.all(poems);
+  promises.forEach((promise) => blue(promise));
+  console.log("done");
 }
 
-function problemB() {
+async function problemB() {
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * *
    *
    * B. loggea todas las stanzas en poema dos, en cualquier orden y loggea
@@ -91,15 +89,12 @@ function problemB() {
 
   // AsyncAwait version
   const files = filenames.map((file) => promisifiedReadFile(file));
-  async function all() {
-    const promises = await Promise.all(files);
-    promises.forEach((promise) => blue(promise));
-    console.log("done");
-  }
-  all();
+  const promises = await Promise.all(files);
+  promises.forEach((promise) => blue(promise));
+  console.log("done");
 }
 
-function problemC() {
+async function problemC() {
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * *
    *
    * C. Lee y loggea todas las stanzas en el poema dos, *en orden* y
@@ -131,15 +126,12 @@ function problemC() {
 
   // AsyncAwait version
   const files = filenames.map((file) => promisifiedReadFile(file));
-  async function all() {
-    const promises = await Promise.all(files);
-    promises.forEach((promise) => blue(promise));
-    console.log("done");
-  }
-  all();
+  const promises = await Promise.all(files);
+  promises.forEach((promise) => blue(promise));
+  console.log("done");
 }
 
-function problemD() {
+async function problemD() {
   /* * * * * * * * * * * * * * * * * * * * * * * * * * * *
    *
    * D. loggea todas las stanzas en el poema dos *en orden* asegurandote
@@ -175,15 +167,12 @@ function problemD() {
 
   // AsyncAwait version
   const files = filenames.map((file) => promisifiedReadFile(file));
-  async function all() {
-    try {
-      const promises = await Promise.all(files);
-      promises.forEach((promise) => blue(promise));
-      console.log("done");
-    } catch (e) {
-      magenta(new Error(e));
-      console.log("done");
-    }
+  try {
+    const promises = await Promise.all(files);
+    promises.forEach((promise) => blue(promise));
+  } catch (e) {
+    magenta(new Error(e));
+  } finally {
+    console.log("done");
   }
-  all();
 }
